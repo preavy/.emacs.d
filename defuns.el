@@ -220,15 +220,15 @@ tags : []
 ")
   )
 
-; Maximize when launched
-; (the trick is that it only maximizes after initialisation).
-(when (equal system-type 'windows-nt)
-  (add-hook 'window-setup-hook 'w32-maximize-frame t))
-(defun w32-maximize-frame ()
-  "Maximize the current frame"
-  (interactive)
-  (w32-send-sys-command 61488)
-  )
+;; ; Maximize when launched
+;; ; (the trick is that it only maximizes after initialisation).
+;; (when (equal system-type 'windows-nt)
+;;   (add-hook 'window-setup-hook 'w32-maximize-frame t))
+;; (defun w32-maximize-frame ()
+;;   "Maximize the current frame"
+;;   (interactive)
+;;   (w32-send-sys-command 61488)
+;;   )
 
 ; http://www.masteringemacs.org/articles/2010/12/22/fixing-mark-commands-transient-mark-mode/
 (defun push-mark-no-activate ()

@@ -17,6 +17,9 @@
 ;; Highlight current line.
 (global-hl-line-mode t)
 
+;; Copy to kill-ring upon mouse adjustments of the region.
+(setq mouse-drag-copy-region t)
+
 ;; Ido.
 (require 'ido)
 (ido-mode t)
@@ -24,7 +27,7 @@
 (setq ido-unc-hosts-cache nil)
 
 ;; EasyPG.
-; (require 'epa-file)
+;(require 'epa-file)
 
 ;; Uniquify.
 (require 'uniquify)
@@ -59,15 +62,21 @@
 ;; Fonts.
 ;;  NB to find fonts
 ;; (print (font-family-list))
-
+;; 60 dashes
+;; ------------------------------------------------------------
+;; 70 dashes
+;; ----------------------------------------------------------------------
+;; 80 dashes
+;; --------------------------------------------------------------------------------
 (when (equal system-type 'windows-nt)
   (scroll-bar-mode 0)
   (tool-bar-mode 0)
   ;; Consolas-12 gives me a frame with two windows each with 78 chars across.
   ;; (set-default-font "consolas-12")
-  ;; (set-default-font "lucida console-10")
+  ;; (set-default-font "lucida console-8")
   ;; As does Droid Sans Mono 11.
-  (set-default-font "droid sans mono-9")
+  ;; (set-default-font "droid sans mono-8")
+  (set-frame-font "ubuntu mono-9" nil t)
   ;; Alternatively this font size lets me see a dired buffer
   ;; (set-default-font "dejavu sans mono-10")
   ;; This is an Ubuntu font alternative
@@ -77,14 +86,21 @@
 (when (equal system-type 'darwin)
   ;;(set-default-font "monospace-15")
   ;;(set-default-font "monaco-15")
-  (set-default-font "dejavu sans mono-11"))
+  (set-frame-font "dejavu sans mono-11" nil t))
 (when (equal system-type 'gnu/linux)
-  (set-default-font "monospace-15"))
+  (set-frame-font "monospace-15" nil t))
 
-;; Package management.
-(setq package-archives
-      '(;;("marmalade" . "http://marmalade-repo.org/packages/")
-        ("melpa" . "http://melpa.org/packages/")))
+(require 'package)
+(add-to-list
+  'package-archives
+  '("melpa" . "http://melpa.org/packages/") t)
+(package-initialize)
+(package-refresh-contents)
+
+;; ;; Package management.
+;; (setq package-archives
+;;       '(;;("marmalade" . "http://marmalade-repo.org/packages/")
+;;         ("melpa" . "http://melpa.org/packages/")))
 
 ;; Autosave into a single place.
 (setq backup-directory-alist
@@ -101,6 +117,9 @@
 ;; Full stop single space ends sentence.
 (setq sentence-end-double-space nil) 
 
+;; Don't wrap line by default. Let them run on off the edge of the screen.
+(setq-default truncate-lines t)
+
 ;; --------------------------------------------------
 ;; Plugins & customisations.
 ;; --------------------------------------------------
@@ -111,8 +130,8 @@
 (when (equal system-type 'windows-nt)
   (setenv "PATH"
           (concat
-           "C:/Program Files (x86)/Git/bin" ";"
            "C:/Program Files/Haskell Platform/7.10.2/bin" ";"
+           "C:/Program Files/Git/mingw64/bin" ";"
            "C:/Program Files/Git/usr/bin" ";"
            (getenv "PATH"))))
 
@@ -132,6 +151,7 @@
 (setenv "NODE_PATH" "/usr/local/lib/node_modules")
 
 (add-to-list 'auto-mode-alist '("\\.scm\\'" . scheme-mode))
+(add-to-list 'auto-mode-alist '("\\.csc$" . csharp-mode))
 
 (add-hook 'emacs-lisp-mode-hook       'enable-paredit-mode)
 (add-hook 'lisp-mode-hook             'enable-paredit-mode)
@@ -161,13 +181,16 @@
 ;; you can select the key you prefer to
 (define-key global-map (kbd "C-x SPC") 'ace-jump-mode)
 
-;; --------------------------------------------------
-;; (require 'inf-haskell)
-(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
-;; (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
-;; (add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
-(add-hook 'haskell-mode-hook 'turn-on-haskell-doc)
-;; (remove-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+; (package-install 'intero)
+; (add-hook 'haskell-mode-hook 'intero-mode)
+
+;; ;; --------------------------------------------------
+;; ;; (require 'inf-haskell)
+;; (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+;; ;; (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+;; ;; (add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
+;; (add-hook 'haskell-mode-hook 'turn-on-haskell-doc)
+;; ;; (remove-hook 'haskell-mode-hook 'turn-on-haskell-indent)
 
 ;; PowerShell file editing.
 (require 'powershell-mode)
@@ -188,10 +211,6 @@
 ;; Improve clipboard on Linux.
 (when (equal system-type 'gnu/linux)
   (setq x-select-enable-clipboard t))
-
-;; Edit with Emacs Chrome extension.
-(require 'edit-server)
-(edit-server-start)
 
 (put 'downcase-region 'disabled nil)
 
@@ -248,17 +267,22 @@
 ;; ;; Case sensitivity is important when finding matches.
 
 (ido-vertical-mode 1)
-(global-smartscan-mode 1)
+;; (global-smartscan-mode 1)
 
 (setq org-special-ctrl-a t)
 
-;; Yasnippet.
-(yas-global-mode 1)
+; https://www.reddit.com/r/orgmode/comments/3c4xdk/spacing_between_items_when_trees_are_folded/
+(setq org-cycle-separator-lines 1)
 
-(split-window-right)
+;; Yasnippet.
+; (yas-global-mode 1)
+
+; (split-window-right)
 
 (when (equal system-type 'windows-nt)
   (setq browse-url-browser-function 'browse-url-generic
-         browse-url-generic-program "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"))
+         browse-url-generic-program "C:/Program Files (x86)/Mozilla Firefox/firefox.exe"))
 
-
+; Ensure that Autohotkey always sees Emacs in the title of the "frame"
+; https://www.gnu.org/software/emacs/manual/html_node/efaq/Displaying-the-current-file-name-in-the-titlebar.html
+(setq frame-title-format "%b - Emacs")

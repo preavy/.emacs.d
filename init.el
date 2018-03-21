@@ -1,3 +1,11 @@
+(prefer-coding-system 'utf-8)
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (load "~/.emacs.d/settings")
 (load "~/.emacs.d/defuns")
 (load "~/.emacs.d/workstation" "NOERROR")
@@ -8,11 +16,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes (quote (zenburn)))
- '(custom-safe-themes
+ '(package-selected-packages
    (quote
-    ("40f6a7af0dfad67c0d4df2a1dd86175436d79fc69ea61614d668a635c2cd94ab" "11636897679ca534f0dec6f5e3cb12f28bf217a527755f6b9e744bd240ed47e1" "3d6b08cd1b1def3cc0bc6a3909f67475e5612dba9fa98f8b842433d827af5d30" default)))
- '(vc-handled-backends (quote (Git))))
+    (zenburn-theme yaml-mode solarized-theme smex smartscan smart-mode-line-powerline-theme rainbow-delimiters php-mode paredit markdown-mode magit js2-refactor intero ido-vertical-mode fsharp-mode expand-region dired+ csharp-mode auto-complete ace-jump-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
