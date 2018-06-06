@@ -10,13 +10,11 @@
   (setq exec-path (append exec-path '("/usr/local/bin")))
   (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin")))
 
-
 (setq locale-coding-system 'utf-8-dos)
 (set-terminal-coding-system 'utf-8-dos)
 (set-keyboard-coding-system 'utf-8)
 (set-selection-coding-system 'utf-8)
 (prefer-coding-system 'utf-8-unix)
-
 
 (global-set-key (kbd "<f12>") 'open-document-outside-emacs)
 (global-set-key (kbd "C-x g") 'magit-status)
@@ -47,5 +45,4 @@
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
-
 

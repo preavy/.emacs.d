@@ -135,19 +135,6 @@
            "C:/Program Files/Git/usr/bin" ";"
            (getenv "PATH"))))
 
-;;; Install fsharp-mode
-;;(unless (package-installed-p 'fsharp-mode)
-;;  (package-install 'fsharp-mode))
-
-;; fsharp mode doesn't work because it looks for fsautocomplete.exe, which I don't have
-;; in the file fsharp-mode-completion.el
-
-;; perhaps I would also need?
-;; C:/Program Files (x86)/Microsoft SDKs/F#/4.0/Framework/v4.0/Fsi.exe
-;; C:/Program Files (x86)/Microsoft SDKs/F#/4.0/Framework/v4.0/Fsc.exe
-
-;; (require 'fsharp-mode)
-
 (setenv "NODE_PATH" "/usr/local/lib/node_modules")
 
 (add-to-list 'auto-mode-alist '("\\.scm\\'" . scheme-mode))
@@ -180,17 +167,6 @@
   t)
 ;; you can select the key you prefer to
 (define-key global-map (kbd "C-x SPC") 'ace-jump-mode)
-
-; (package-install 'intero)
-; (add-hook 'haskell-mode-hook 'intero-mode)
-
-;; ;; --------------------------------------------------
-;; ;; (require 'inf-haskell)
-;; (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
-;; ;; (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
-;; ;; (add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
-;; (add-hook 'haskell-mode-hook 'turn-on-haskell-doc)
-;; ;; (remove-hook 'haskell-mode-hook 'turn-on-haskell-indent)
 
 ;; PowerShell file editing.
 (require 'powershell-mode)
@@ -225,9 +201,6 @@
 
 (setq ac-ignore-case nil)
 
-;; (when (equal system-type 'windows-nt)
-;;   (set-frame-parameter nil 'fullscreen 'fullboth))
-
 (set-scroll-bar-mode nil)
 (setq indent-tabs-mode nil)
 
@@ -244,28 +217,6 @@
 
 ;; Settings below here must be called AFTER package-initialise.
 
-;; Js2-mode: currently disabled because I'm fed up with 'timer' errors.
-;; (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-;; (setq js2-basic-offset 4)
-;; (require 'js2-refactor)
-;; (js2r-add-keybindings-with-prefix "C-c C-m")
-;; subword-mode breaks m-n and m-p and transpose word
-;;(add-hook 'js-mode-hook 'subword-mode)
-
-;; ;; Auto-complete mode.
-;; ;; Load the default autocomplete configuration.
-;; (require 'auto-complete-config)
-;; ;; Make sure we can find the dictionaries.
-;; (add-to-list 'ac-dictionary-directories
-;;              "~/.emacs.d/elpa/auto-complete-20130724.1750/dict")
-;; ;; Use dictionaries by default.
-;; (setq-default ac-sources
-;;               (add-to-list 'ac-sources 'ac-source-dictionary))
-;; (global-auto-complete-mode t)
-;; ;; Start auto-completion after 2 characters of a word.
-;; (setq ac-auto-start 2)
-;; ;; Case sensitivity is important when finding matches.
-
 (ido-vertical-mode 1)
 ;; (global-smartscan-mode 1)
 
@@ -273,6 +224,8 @@
 
 ; https://www.reddit.com/r/orgmode/comments/3c4xdk/spacing_between_items_when_trees_are_folded/
 (setq org-cycle-separator-lines 1)
+
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
 
 ;; Yasnippet.
 ; (yas-global-mode 1)

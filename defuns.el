@@ -10,6 +10,10 @@
 (when (and (= emacs-major-version 23) (equal window-system 'w32))
   (defun server-ensure-safe-dir (dir) "Noop" t))
 
+(defun shrink-frame ()
+  (interactive)
+  (set-frame-size (selected-frame) 80 24))
+
 (defun jslint-current-file ()
   (interactive)
   (shell-command (concat "jslint " (buffer-file-name))))
@@ -104,10 +108,26 @@ Works in Microsoft Windows, Mac OS X, Linux."
 ; End of PowerShell stuff.
 
 ; http://www.masteringemacs.org/articles/2011/02/08/mastering-key-bindings-emacs/
-(defun mp-insert-date ()
-  (interactive)
-  (insert (format-time-string "%Y.%m.%d (%a)")))
- 
+; Original version.
+;; (defun mp-insert-date ()
+;;   (interactive)
+;;   (insert (format-time-string "%Y.%m.%d (%a)")))
+
+; This is my newer version which, if you type C-u first, starts an Org
+; heading with the date in it and creates some space for you to start
+; a little org entry
+(defun mp-insert-date (arg)
+  "Display the value of the raw prefix arg."
+  (interactive "P")
+  (if (equal arg '(4))
+      (progn
+        (insert (format-time-string "* %Y.%m.%d (%a)"))
+        (org-open-line 2)
+        (insert "
+
+"))
+    (insert (format-time-string "%Y.%m.%d (%a)"))))
+
 (defun mp-insert-time ()
   (interactive)
   (insert (format-time-string "%X")))
@@ -219,16 +239,6 @@ tags : []
 ---
 ")
   )
-
-;; ; Maximize when launched
-;; ; (the trick is that it only maximizes after initialisation).
-;; (when (equal system-type 'windows-nt)
-;;   (add-hook 'window-setup-hook 'w32-maximize-frame t))
-;; (defun w32-maximize-frame ()
-;;   "Maximize the current frame"
-;;   (interactive)
-;;   (w32-send-sys-command 61488)
-;;   )
 
 ; http://www.masteringemacs.org/articles/2010/12/22/fixing-mark-commands-transient-mark-mode/
 (defun push-mark-no-activate ()
