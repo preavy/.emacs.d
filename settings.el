@@ -76,7 +76,8 @@
   ;; (set-default-font "lucida console-8")
   ;; As does Droid Sans Mono 11.
   ;; (set-default-font "droid sans mono-8")
-  (set-frame-font "ubuntu mono-9" nil t)
+  (set-frame-font "inconsolata bold-10" nil t)
+  ;; (set-frame-font "ubuntu mono-10" nil t)
   ;; Alternatively this font size lets me see a dired buffer
   ;; (set-default-font "dejavu sans mono-10")
   ;; This is an Ubuntu font alternative

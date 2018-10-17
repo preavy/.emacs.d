@@ -14,6 +14,10 @@
   (interactive)
   (set-frame-size (selected-frame) 80 24))
 
+(defun shrink-frame-width ()
+  (interactive)
+  (set-frame-width (selected-frame) 80))
+
 (defun jslint-current-file ()
   (interactive)
   (shell-command (concat "jslint " (buffer-file-name))))
